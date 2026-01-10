@@ -20,10 +20,10 @@ public final class Constants {
     public static class SwerveConstants {
         public static final File SWERVE_DIRECTORY = new File(Filesystem.getDeployDirectory(), "swerve");
         public static final LinearVelocity MAX_SPEED = MetersPerSecond.of(10);
+        public static final Angle GYRO_OFFSET = Degree.of(0);
     }
 
     public final class TurretConstants {
-
         public static final Angle TURRET_UPPER_LIMIT = Degree.of(80);
         public static final Angle TURRET_LOWER_LIMIT = Degree.of(-15);
         public static final Translation3d TURRET_PIVOT_OFFSET = new Translation3d(
