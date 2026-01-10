@@ -8,7 +8,10 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.subsystems.drive.SwerveSubsystem;
+import frc.robot.subsystems.intake.IntakeSubsystem;
 import frc.robot.subsystems.projectile.ProjectileSubsystem;
+import frc.robot.subsystems.projectile.ShooterSubsystem;
+import frc.robot.subsystems.turret.TurretSubsystem;
 import swervelib.SwerveInputStream;
 
 public class RobotContainer {
@@ -16,9 +19,11 @@ public class RobotContainer {
 	//Establishes subsystems
 	public static final SwerveSubsystem swerveSubsystem = new SwerveSubsystem();
 	public static final ProjectileSubsystem projectileSubsystem = new ProjectileSubsystem();
+	public static final ShooterSubsystem shooterSubsystem = new ShooterSubsystem();
+	public static final TurretSubsystem turretSubsystem = new TurretSubsystem();
+	public static final IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
 
-	public static final CommandXboxController driverController   = new CommandXboxController(
-        Constants.OperatorConstants.DRIVER_CONTROLLER_PORT);
+	public static final CommandXboxController driverController   = new CommandXboxController(Constants.OperatorConstants.DRIVER_CONTROLLER_PORT);
 
 	//Transforms controller input into swerve drive speeds
 	SwerveInputStream driveAngularVelocity = SwerveInputStream.of(swerveSubsystem.getSwerveDrive(),
