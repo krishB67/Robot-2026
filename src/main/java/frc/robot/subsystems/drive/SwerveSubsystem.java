@@ -1,5 +1,6 @@
 package frc.robot.subsystems.drive;
 
+import static edu.wpi.first.units.Units.Degree;
 import static edu.wpi.first.units.Units.Meter;
 import static edu.wpi.first.units.Units.MetersPerSecond;
 import static edu.wpi.first.units.Units.Radian;
@@ -15,6 +16,7 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
+import edu.wpi.first.units.measure.Angle;
 import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -65,6 +67,10 @@ public class SwerveSubsystem extends SubsystemBase{
 
     public void driveFieldOriented(ChassisSpeeds speeds) {
         swerveDrive.driveFieldOriented(speeds);
+    }
+
+    public Angle getNavXAngle() {
+        return Degree.of(navx.getAngle());
     }
 
     public Command driveFieldOriented(Supplier<ChassisSpeeds> speeds) {
