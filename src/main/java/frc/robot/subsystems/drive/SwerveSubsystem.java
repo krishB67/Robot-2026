@@ -44,7 +44,7 @@ public class SwerveSubsystem extends SubsystemBase{
 
     public void zeroGyro() {
         swerveDrive.zeroGyro();
-        System.out.println("zeroed swerve");
+        System.out.println("Zeroed Swerve");
     }
 
     public SwerveDrive getSwerveDrive() {

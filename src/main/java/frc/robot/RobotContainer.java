@@ -6,20 +6,37 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
+import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.subsystems.drive.SwerveSubsystem;
 import frc.robot.subsystems.projectile.ProjectileSubsystem;
+import swervelib.SwerveInputStream;
 
 public class RobotContainer {
 
 	public static final SwerveSubsystem swerveSubsystem = new SwerveSubsystem();
 	public static final ProjectileSubsystem projectileSubsystem = new ProjectileSubsystem();
+
+	public static final CommandXboxController driverController   = new CommandXboxController(
+        Constants.OperatorConstants.DRIVER_CONTROLLER_PORT);
+
+	SwerveInputStream driveAngularVelocity = SwerveInputStream.of(swerveSubsystem.getSwerveDrive(),
+        () -> driverController.getLeftY() * -1,
+        () -> driverController.getLeftX() * -1)
+        .withControllerRotationAxis(
+            () -> driverController.getRightX() * Constants.OperatorConstants.SWERVE_ROTATION_SCALE)
+        .deadband(Constants.OperatorConstants.DEADBAND)
+        .scaleTranslation(Constants.OperatorConstants.SWERVE_TRANSLATION_SCALE)
+
+        .allianceRelativeControl(true);
 	
+	Command driveFieldOrientedAngularVelocity = swerveSubsystem.driveFieldOriented(driveAngularVelocity);
+
 	public RobotContainer() {
 		configureBindings();
 	}
 
 	private void configureBindings() {
-
+		swerveSubsystem.setDefaultCommand(driveFieldOrientedAngularVelocity);
 	}
 
 	public Command getAutonomousCommand() {

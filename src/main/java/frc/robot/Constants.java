@@ -34,6 +34,13 @@ public final class Constants {
         public static final Distance TURRET_PIVOT_FUEL_OFFSET = Meter.of(0.22);
     }
 
+    public final class OperatorConstants {
+        public static final double DEADBAND = 0.1;
+        public static final double SWERVE_TRANSLATION_SCALE = 1;
+        public static final double SWERVE_ROTATION_SCALE = 1;
+        public static final int DRIVER_CONTROLLER_PORT = 0;
+    }
+
     public final class FuelPhysicsConstants {
         public static final double DRAG_CONSTANT = 0.5;
         public static final double CROSS_SECTION_AREA = 0.01767;
