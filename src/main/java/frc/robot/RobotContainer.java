@@ -12,6 +12,7 @@ import frc.robot.subsystems.intake.IntakeSubsystem;
 import frc.robot.subsystems.projectile.ProjectileSubsystem;
 import frc.robot.subsystems.projectile.ShooterSubsystem;
 import frc.robot.subsystems.turret.TurretSubsystem;
+import frc.robot.subsystems.vision.LimelightSubsystem;
 import swervelib.SwerveInputStream;
 
 public class RobotContainer {
@@ -21,6 +22,7 @@ public class RobotContainer {
 	public static final ShooterSubsystem shooterSubsystem = new ShooterSubsystem();
 	public static final TurretSubsystem turretSubsystem = new TurretSubsystem();
 	public static final IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
+	public static final LimelightSubsystem limelightSubsystem = new LimelightSubsystem();
 
 	public static final CommandXboxController driverController   = new CommandXboxController(Constants.OperatorConstants.DRIVER_CONTROLLER_PORT);
 

@@ -5,6 +5,7 @@ import static edu.wpi.first.units.Units.Kilogram;
 import static edu.wpi.first.units.Units.Meter;
 import static edu.wpi.first.units.Units.MetersPerSecond;
 import static edu.wpi.first.units.Units.MetersPerSecondPerSecond;
+import static edu.wpi.first.units.Units.Pound;
 
 import java.io.File;
 
@@ -34,6 +35,9 @@ public final class Constants {
         public static final Distance TURRET_PIVOT_FUEL_OFFSET = Meter.of(0.22);
     }
 
+    public final class ShooterConstants {
+    }
+
     public final class OperatorConstants {
         public static final double DEADBAND = 0.1;
         public static final double SWERVE_TRANSLATION_SCALE = 1;
@@ -44,7 +48,7 @@ public final class Constants {
     public final class FuelPhysicsConstants {
         public static final double DRAG_CONSTANT = 0.5;
         public static final double CROSS_SECTION_AREA = 0.01767;
-        public static final Mass MASS = Kilogram.of(0.145);
+        public static final Mass MASS = Pound.of(0.5);
         public static final double FLUID_DENSITY = 1.2754;
         public static final LinearAcceleration GRAVITY = MetersPerSecondPerSecond.of(9.80665);
     }
