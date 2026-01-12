@@ -149,7 +149,7 @@ public class ProjectileSubsystem extends SubsystemBase {
             k1vx = velX;
             k1vy = velY;
             k1vz = velZ;
-            magVel = Math.sqrt(Math.pow(k1vx, 2) + Math.pow(k1vy, 2) + Math.pow(k1vz, 2));
+            magVel = Math.sqrt(k1vx * k1vx + k1vy * k1vy + k1vz * k1vz);
             dragFactor = -dragConstant * magVel;
 
             k1ax = ((k1vx * dragFactor) / mass);
@@ -160,7 +160,7 @@ public class ProjectileSubsystem extends SubsystemBase {
             k2vx = velX + (0.5 * k1ax * deltaTime);
             k2vy = velY + (0.5 * k1ay * deltaTime);
             k2vz = velZ + (0.5 * k1az * deltaTime);
-            magVel = Math.sqrt(Math.pow(k2vx, 2) + Math.pow(k2vy, 2) + Math.pow(k2vz, 2));
+            magVel = Math.sqrt(k2vx * k2vx + k2vy * k2vy + k2vz * k2vz);
             dragFactor = -dragConstant * magVel;
 
             k2ax = ((k2vx * dragFactor) / mass);
@@ -171,7 +171,7 @@ public class ProjectileSubsystem extends SubsystemBase {
             k3vx = velX + (0.5 * k2ax * deltaTime);
             k3vy = velY + (0.5 * k2ay * deltaTime);
             k3vz = velZ + (0.5 * k2az * deltaTime);
-            magVel = Math.sqrt(Math.pow(k3vx, 2) + Math.pow(k3vy, 2) + Math.pow(k3vz, 2));
+            magVel = Math.sqrt(k3vx * k3vx + k3vy * k3vy + k3vz * k3vz);
             dragFactor = -dragConstant * magVel;
 
             k3ax = ((k3vx * dragFactor) / mass);
@@ -182,7 +182,7 @@ public class ProjectileSubsystem extends SubsystemBase {
             k4vx = velX + (k3ax * deltaTime);
             k4vy = velY + (k3ay * deltaTime);
             k4vz = velZ + (k3az * deltaTime);
-            magVel = Math.sqrt(Math.pow(k4vx, 2) + Math.pow(k4vy, 2) + Math.pow(k4vz, 2));
+            magVel = Math.sqrt(k4vx * k4vx + k4vy * k4vy + k4vz * k4vz);
             dragFactor = -dragConstant * magVel;
 
             k4ax = ((k4vx * dragFactor) / mass);

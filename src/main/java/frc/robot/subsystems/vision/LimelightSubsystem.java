@@ -2,13 +2,16 @@ package frc.robot.subsystems.vision;
 
 import static edu.wpi.first.units.Units.Degree;
 
+import edu.wpi.first.math.VecBuilder;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.RobotContainer;
 import frc.robot.libraries.LimelightHelpers;
+import swervelib.SwerveDrive;
 
 public class LimelightSubsystem extends SubsystemBase {
     
+    private SwerveDrive swerveDrive = RobotContainer.swerveSubsystem.getSwerveDrive();
     private LimelightHelpers.PoseEstimate limelightMeasurement;
 
     public LimelightSubsystem() {
@@ -28,7 +31,8 @@ public class LimelightSubsystem extends SubsystemBase {
         try {
             if (limelightMeasurement != null && limelightMeasurement.pose != null) {
                 if (limelightMeasurement.pose.getX() != 0) {
-                    RobotContainer.swerveSubsystem.getSwerveDrive().addVisionMeasurement(limelightMeasurement.pose, limelightMeasurement.timestampSeconds);
+                    swerveDrive.setVisionMeasurementStdDevs(VecBuilder.fill(.5, .5, 9999999));
+                    swerveDrive.addVisionMeasurement(limelightMeasurement.pose, limelightMeasurement.timestampSeconds);
                     SmartDashboard.putBoolean("LimeLight/Tag", true);
                 } else {
                     SmartDashboard.putBoolean("LimeLight/Tag", false);
