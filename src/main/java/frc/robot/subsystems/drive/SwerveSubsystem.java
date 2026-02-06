@@ -8,6 +8,10 @@ import static edu.wpi.first.units.Units.Radian;
 import java.io.File;
 import java.util.function.Supplier;
 
+import com.pathplanner.lib.auto.AutoBuilder;
+import com.pathplanner.lib.config.PIDConstants;
+import com.pathplanner.lib.config.RobotConfig;
+import com.pathplanner.lib.controllers.PPHolonomicDriveController;
 import com.studica.frc.AHRS;
 import com.studica.frc.AHRS.NavXComType;
 
@@ -17,6 +21,7 @@ import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.units.measure.Angle;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -26,7 +31,8 @@ import swervelib.parser.SwerveParser;
 import swervelib.telemetry.SwerveDriveTelemetry.TelemetryVerbosity;
 
 public class SwerveSubsystem extends SubsystemBase{
-    
+    public RobotConfig config;
+
     private final SwerveDrive swerveDrive;
     private final AHRS navx = new AHRS(NavXComType.kMXP_SPI); // Enables connection to the RIO
     private final Rotation3d gyroOffset = new Rotation3d(
@@ -35,9 +41,22 @@ public class SwerveSubsystem extends SubsystemBase{
         Constants.SwerveConstants.GYRO_OFFSET.in(Radian)
     );
 
-    public SwerveSubsystem() {
-        swervelib.telemetry.SwerveDriveTelemetry.verbosity = TelemetryVerbosity.HIGH;
+    public Pose2d getPose(){
+        return swerveDrive.getPose();
+    }
+    public void resetPose(Pose2d pose) {
+        swerveDrive.resetOdometry(pose);
+    }
+    public ChassisSpeeds getRobotRelativeSpeeds() {
+        return swerveDrive.getRobotVelocity();
+    }
+    public void driveRobotRelative(ChassisSpeeds speeds) {
+        swerveDrive.drive(speeds);
+    }   
 
+    public SwerveSubsystem() {
+    
+        swervelib.telemetry.SwerveDriveTelemetry.verbosity = TelemetryVerbosity.HIGH;
         try {
 
             // Will throw error if no swerve directory (Thats the purpose)
@@ -51,10 +70,40 @@ public class SwerveSubsystem extends SubsystemBase{
         catch (Exception e) {
             throw new RuntimeException(e);
         }
+        
+       
+        try{
+            config = RobotConfig.fromGUISettings();
+        } catch (Exception e){
+            e.printStackTrace();    
+        }
+        
+        AutoBuilder.configure(
+            this::getPose, 
+            this::resetPose, 
+            this::getRobotRelativeSpeeds, 
+            (speeds, feedforwards) -> driveRobotRelative(speeds),
+            new PPHolonomicDriveController( 
+                    new PIDConstants(5.0, 0.0, 0.0), 
+                    new PIDConstants(5.0, 0.0, 0.0) 
+            ),
+            config,
+            () -> {
+            
+
+              var alliance = DriverStation.getAlliance();
+              if (alliance.isPresent()) {
+                return alliance.get() == DriverStation.Alliance.Red;
+              }
+              return false;
+            },
+            this 
+    );
 
         swerveDrive.setAngularVelocityCompensation(true, true, 0.1);
         swerveDrive.setGyroOffset(gyroOffset);
     }
+    
 
     public void zeroGyro() {
         swerveDrive.zeroGyro();
