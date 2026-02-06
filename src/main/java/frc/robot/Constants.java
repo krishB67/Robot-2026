@@ -30,7 +30,9 @@ public final class Constants {
         public static final File SWERVE_DIRECTORY = new File(Filesystem.getDeployDirectory(), "swerve"); // File with swerve configs
         public static final LinearVelocity MAX_SPEED = MetersPerSecond.of(10); // Maximum speed the swerve drive can go
         public static final Angle GYRO_OFFSET = Degree.of(0);
-        public static final float PID_P = 0;
+        public static final float Path_Finder_PID_P = 0;
+        public static final float Path_Finder_PID_I = 0;
+        public static final float Path_Finder_PID_D = 0;
 
     }
 
